@@ -10,9 +10,9 @@ class Award
 
   def blue_first
     if @quality < 49 && @expires_in <= 0
-        @quality += 2
+      increase_quality(2)
     elsif @quality < 50 
-        @quality += 1
+      increase_quality()
     end
   end
 
@@ -21,35 +21,42 @@ class Award
     when @expires_in <= 0
       @quality = 0
     when @expires_in < 6
-      @quality += 3 if @quality < 48
+      increase_quality(3) if @quality < 48
     when @expires_in < 11
-      @quality += 2 if @quality < 49
+      increase_quality(2) if @quality < 49
     else 
-      @quality += 1 if @quality < 50
-    end
-  end
-
-  def blue_star
-    if @quality > 0
-      if @expires_in <= 0
-        @quality -= 4
-      else
-        @quality -= 2
-      end
+      increase_quality() if @quality < 50
     end
   end
 
   def blue_distinction_plus
-    @quality = 80
+    @quality = @quality
+  end
+
+  def blue_star
+    if @quality > 0
+      @expires_in <= 0 ? decrease_quality(4) : decrease_quality(2)
+    end
   end
 
   def normal_award
     if @quality > 0
-      if @expires_in <= 0
-        @quality -= 2
-      else
-        @quality -= 1
-      end
+      @expires_in <= 0 ? decrease_quality(2) : decrease_quality()
     end
   end
+
+  def update_expires_in
+    @expires_in -= 1
+  end
+
+  private
+
+  def increase_quality(value = 1)
+    @quality += value
+  end
+
+  def decrease_quality(value = 1)
+    @quality -= value
+  end
+  
 end
