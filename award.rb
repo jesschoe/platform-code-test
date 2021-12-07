@@ -16,23 +16,22 @@ class Award
     end
   end
 
-  def blue_compare
-    if @quality < 50
-      if @expires_in < 0
-        @quality = 0
-      elsif @expires_in < 6
-        @quality += 3
-      elsif @expires_in < 11
-        @quality += 2
-      else
-        @quality += 1
-      end
+  def blue_compare 
+    case 
+    when @expires_in <= 0
+      @quality = 0
+    when @expires_in < 6
+      @quality += 3 if @quality < 48
+    when @expires_in < 11
+      @quality += 2 if @quality < 49
+    else 
+      @quality += 1 if @quality < 50
     end
   end
 
   def blue_star
     if @quality > 0
-      if @expires_in < 0
+      if @expires_in <= 0
         @quality -= 4
       else
         @quality -= 2
