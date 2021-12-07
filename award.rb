@@ -8,7 +8,7 @@ class Award
     @quality = quality
   end
 
-  def blue_first
+  def update_blue_first
     if @quality < 49 && @expires_in <= 0
       increase_quality(2)
     elsif @quality < 50 
@@ -16,7 +16,7 @@ class Award
     end
   end
 
-  def blue_compare 
+  def update_blue_compare 
     case 
     when @expires_in <= 0
       @quality = 0
@@ -29,17 +29,17 @@ class Award
     end
   end
 
-  def blue_distinction_plus
+  def update_blue_distinction_plus
     @quality = @quality
   end
 
-  def blue_star
+  def update_blue_star
     if @quality > 0
       @expires_in <= 0 ? decrease_quality(4) : decrease_quality(2)
     end
   end
 
-  def normal_award
+  def update_normal_award
     if @quality > 0
       @expires_in <= 0 ? decrease_quality(2) : decrease_quality()
     end
@@ -58,5 +58,5 @@ class Award
   def decrease_quality(value = 1)
     @quality -= value
   end
-  
+
 end
