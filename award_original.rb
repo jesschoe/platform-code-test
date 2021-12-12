@@ -8,25 +8,6 @@ class Award
     @quality = quality
   end
 
-  def update_award_quality
-    case @name
-    when 'Blue First'
-      update_blue_first
-    when 'Blue Compare'
-      update_blue_compare
-    when 'Blue Star'
-      update_blue_star
-    when 'Blue Distinction Plus'
-      update_blue_distinction_plus
-    else 
-      update_normal_award
-    end
-
-    if @name != 'Blue Distinction Plus'
-      update_expires_in
-    end
-  end
-
   def update_blue_first
     if @quality < 49 && @expires_in <= 0
       increase_quality(2)
