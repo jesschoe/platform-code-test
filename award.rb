@@ -8,7 +8,7 @@ class Award
     @quality = quality
   end
 
-  def update_award_quality
+  def update_quality
     case @name
     when 'Blue First'
       update_blue_first
